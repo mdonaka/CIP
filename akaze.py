@@ -35,12 +35,12 @@ class Akaze:
             return
         return random.sample(kp, k=50)
 
-    def sortting(self, k=50, kp=None):
+    def sortting(self, k=50, kp=None, rev=False):
         if kp == None:
             kp = self.kp
         if len(kp) < k:
             return
-        return self.kp[-50:]
+        return kp[-50:] if not rev else kp[:50]
 
     def sorttingAndRandom(self, k=50, kp=None):
         if kp == None:
@@ -50,19 +50,19 @@ class Akaze:
         tmp = self.sortting(k=min(len(kp), 4*k))
         return self.random(kp=tmp)
 
-    def cov(self, k=50, kp=None):
+    def cov(self, k=50, kp=None, rev=True):
         if kp == None:
             kp = self.kp
         if len(kp) < k:
             return
-        mx = 0
+        mx = 0 if rev else 1e30
         now = self.random()
         for _ in range(1000):
             tmp = self.random()
             data = [[p.pt[0], p.pt[1]] for p in tmp]
             mcov = np.cov(data, rowvar=0)
             val = mcov[0][0]*mcov[1][1]
-            if val > mx:
+            if (rev and val > mx) or (not rev and val < mx):
                 now = tmp
                 mx = val
         return self.random()

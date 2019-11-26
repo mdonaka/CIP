@@ -17,6 +17,13 @@ if __name__ == "__main__":
         c.run()
         c.output()
 
+    # reverse
+    for file in fileList:
+        c = Akaze(file=file, out="revease")
+        c.kp = c.sortting(rev=True)
+        c.run()
+        c.output()
+
     # sort and random
     for file in fileList:
         c = Akaze(file=file, out="sort+random")
@@ -28,5 +35,12 @@ if __name__ == "__main__":
     for file in fileList:
         c = Akaze(file=file, out="cov")
         c.kp = c.cov()
+        c.run()
+        c.output()
+
+    # cov rev
+    for file in fileList:
+        c = Akaze(file=file, out="cov_rev")
+        c.kp = c.cov(rev=True)
         c.run()
         c.output()
