@@ -23,3 +23,10 @@ if __name__ == "__main__":
         c.kp = c.sorttingAndRandom()
         c.run()
         c.output()
+
+    # cov
+    for file in fileList:
+        c = Akaze(file=file, out="cov")
+        c.kp = c.cov()
+        c.run()
+        c.output()

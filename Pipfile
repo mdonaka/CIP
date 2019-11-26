@@ -9,6 +9,7 @@ verify_ssl = true
 opencv-python = "*"
 matplotlib = "*"
 autopep8 = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.8"
