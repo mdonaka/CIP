@@ -1,5 +1,6 @@
 import cv2
 import pickle
+import random
 
 
 class Akaze:
@@ -8,21 +9,25 @@ class Akaze:
         self.dir = dir
         self.out = out
         self.file = file
-        self.kp = self.calcKp()
+        self.img = cv2.imread(f"{self.dir}/{self.file}.png")
+        self.kp = self.__calcKp()
+        cv2.imwrite(f"{self.dir}/bef/{self.file}_{self.out}.png", self.img)
 
-    def calcKp(self):
-        img = cv2.imread(f"{self.dir}/{self.file}.png")
+    def __calcKp(self):
         akaze = cv2.AKAZE_create(threshold=0.0)
-        kp = akaze.detect(img)
-        img_akaze = cv2.drawKeypoints(img, kp, None, flags=4)
-        cv2.imwrite(f"{self.dir}/bef/{self.file}_{self.out}.png", img)
+        return akaze.detect(self.img)
+
+    def run(self):
+        img_akaze = cv2.drawKeypoints(self.img, self.kp, None, flags=4)
         cv2.imwrite(f"{self.dir}/kp/{self.file}_kp_{self.out}.png", img_akaze)
-        lst = []
-        for p in kp:
-            lst.append([p.pt[0], p.pt[1], p.size])
-        return lst
 
     def output(self):
         with open(f"{self.dir}/points/{self.file}_{self.out}.csv", "w") as f:
             for p in self.kp:
-                f.write(f"{p[0]},{p[1]},{p[2]}\n")
+                f.write(f"{p.pt[0]},{p.pt[1]},{p.size}\n")
+
+    ######### select kp ##########
+    def random(self, k=50):
+        if len(self.kp) < k:
+            return
+        self.kp = random.sample(self.kp, k=50)

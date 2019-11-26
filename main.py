@@ -1,6 +1,10 @@
 from akaze import Akaze
 
 if __name__ == "__main__":
-    c = Akaze(file="c++")
-    c = Akaze(file="python")
-    c = Akaze(file="rust")
+    fileList = ["c++","python","rust"]
+
+    for file in fileList:
+        c = Akaze(file=file, out="random")
+        c.random()
+        c.run()
+        c.output()
