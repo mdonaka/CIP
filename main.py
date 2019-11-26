@@ -44,3 +44,17 @@ if __name__ == "__main__":
         c.kp = c.sorttingAndCov()
         c.run()
         c.output()
+
+    # long
+    for file in fileList:
+        c = Akaze(file=file, out="long")
+        c.kp = c.long()
+        c.run()
+        c.output()
+
+    # sort and long
+    for file in fileList:
+        c = Akaze(file=file, out="sort+long")
+        c.kp = c.sorttingAndlong()
+        c.run()
+        c.output()
