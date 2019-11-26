@@ -38,9 +38,9 @@ if __name__ == "__main__":
         c.run()
         c.output()
 
-    # cov rev
+    # sort and random
     for file in fileList:
-        c = Akaze(file=file, out="cov_rev")
-        c.kp = c.cov(rev=True)
+        c = Akaze(file=file, out="sort+cov")
+        c.kp = c.sorttingAndCov()
         c.run()
         c.output()
