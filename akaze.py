@@ -58,7 +58,7 @@ class Akaze:
         mx = 0 if rev else 1e30
         now = self.random()
         for _ in range(1000):
-            tmp = self.random()
+            tmp = self.random(kp=kp)
             data = [[p.pt[0], p.pt[1]] for p in tmp]
             mcov = np.cov(data, rowvar=0)
             val = mcov[0][0]*mcov[1][1]
@@ -67,31 +67,37 @@ class Akaze:
                 mx = val
         return now
 
+    def sorttingAndCov(self, k=30, kp=None):
+        if kp == None:
+            kp = self.kp
+        if len(kp) < k:
+            return
+        tmp = self.sortting(k=min(len(kp), 4*k))
+        return self.cov(kp=tmp)
+
     def long(self, k=30, kp=None):
         if kp == None:
             kp = self.kp
         if len(kp) < k:
             return
-        mx = 0 if rev else 1e30
+        mx = 0 
         now = self.random()
         for _ in range(5):
-            tmp = self.random()
-            data = [[p.pt[0], p.pt[1]] for p in tmp]
+            tmp = self.random(kp=kp)
+            data = [np.array([p.pt[0], p.pt[1]]) for p in tmp]
             sum = 0
             for i in range(len(data)):
                 mnN = 1e20
                 for j in range(len(data)):
                     if i==j:
                         continue
-                    norm = np.linalg.norm(data[i],data[j])
+                    norm = np.linalg.norm(data[i]-data[j])
                     if norm < mnN:
                         mnN = norm
                 sum += mnN
-            print(sum)
             if sum > mx:
                 now = tmp
                 mx = sum
-        print("ok", mx)
         return now
 
 
