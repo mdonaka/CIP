@@ -40,7 +40,7 @@ class Akaze:
             kp = self.kp
         if len(kp) < k:
             return
-        return kp[-50:] if not rev else kp[:50]
+        return kp[-k:] if not rev else kp[:k]
 
     def sorttingAndRandom(self, k=30, kp=None):
         if kp == None:
