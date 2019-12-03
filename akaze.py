@@ -27,24 +27,25 @@ class Akaze:
     def output(self):
         with open(f"{self.dir}/points/{self.file}_{self.out}.csv", "w") as f:
             for p in self.kp:
-                f.write(f"{p.pt[0]},{p.pt[1]},{p.response}\n")
+                val = p.response*100
+                f.write(f"{p.pt[0]},{p.pt[1]},{val}\n")
 
     ######### select kp ##########
-    def random(self, k=50, kp=None):
+    def random(self, k=30, kp=None):
         if kp == None:
             kp = self.kp
         if len(kp) < k:
             return
-        return random.sample(kp, k=50)
+        return random.sample(kp, k=30)
 
-    def sortting(self, k=50, kp=None, rev=False):
+    def sortting(self, k=30, kp=None, rev=False):
         if kp == None:
             kp = self.kp
         if len(kp) < k:
             return
         return kp[-k:] if not rev else kp[:k]
 
-    def sorttingAndRandom(self, k=50, kp=None):
+    def sorttingAndRandom(self, k=30, kp=None):
         if kp == None:
             kp = self.kp
         if len(kp) < k:
@@ -52,7 +53,7 @@ class Akaze:
         tmp = self.sortting(k=min(len(kp), 4*k))
         return self.random(kp=tmp)
 
-    def cov(self, k=50, kp=None, rev=True):
+    def cov(self, k=30, kp=None, rev=True):
         if kp == None:
             kp = self.kp
         if len(kp) < k:
@@ -69,7 +70,7 @@ class Akaze:
                 mx = val
         return now
 
-    def sorttingAndCov(self, k=50, kp=None):
+    def sorttingAndCov(self, k=30, kp=None):
         if kp == None:
             kp = self.kp
         if len(kp) < k:
@@ -77,7 +78,7 @@ class Akaze:
         tmp = self.sortting(k=min(len(kp), 4*k))
         return self.cov(kp=tmp)
 
-    def long(self, k=50, kp=None):
+    def long(self, k=30, kp=None):
         if kp == None:
             kp = self.kp
         if len(kp) < k:
@@ -103,7 +104,7 @@ class Akaze:
         return now
 
 
-    def sorttingAndlong(self, k=50, kp=None):
+    def sorttingAndlong(self, k=30, kp=None):
         if kp == None:
             kp = self.kp
         if len(kp) < k:
