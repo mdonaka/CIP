@@ -1,7 +1,7 @@
 from akaze import Akaze
 
 if __name__ == "__main__":
-    fileList = ["c++","python","rust"]
+    fileList = ["c++", "python", "rust"]
 
     # random
     for file in fileList:
